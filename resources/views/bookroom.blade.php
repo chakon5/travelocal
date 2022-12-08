@@ -7,65 +7,6 @@
 
 <style>
 
-/* .grid-container {
-  display: grid;
-  grid-template-areas:
-    'header header header header header header'
-    'main main main main main main';
-  gap: 10px;
-  background-color: #2196F3;
-  padding-left: 10px;
-  padding-left: 80px;
-  padding-right: 80px;
-}
-
-.grid-container > div {
-  background-color: rgba(255, 255, 255, 0.8);
-  text-align: left;
-}
-
-input[type=text], select {
-    width: 450px;
-    padding: 12px;
-    display: block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin: 8px 0;
-}
-
-input[type=number], select {
-    width: 450px;
-    padding: 12px;
-    display: block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin: 8px 0;
-}
-
-input[type=date], select {
-  width: 450px;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-.A {
-    margin-left: 500px;
-    font-size: 20px;
-}
-
-.item3 { 
-    grid-area: main;
-    height: auto;
-    padding-left: 70px;
-    font-size: 16px;
-} */
-
 .button1 {
     margin-top: 23px;
 }
@@ -159,60 +100,251 @@ input[type=date], select {
     color: white;
 }
 
+/* ฟอร์มใส่ข้อมูล */
+input[type=text], select {
+    width: 100%;
+    padding: 12px;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin: 8px 0;
+}
+
+.select {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=date], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=number], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=password], select {
+    width: 450px;
+    padding: 12px 20px;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin: 8px 0;
+}
+
+input, textarea {
+    width: 100%;
+    padding-bottom: 50px;
+    padding-left: 12px;
+    padding-top: 12px;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.textarea-1{
+    margin: 8px 0;
+}
+
+input[type=submit] {
+    width: 120px;
+    height: 50px;
+    background-color: #04AA6D;
+    color: white;
+    padding: 10px 10px;
+    margin: 20px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
 </style>
 
 @section('content')
 
 <div class="container">
+
 <div class="reservation">
-<div class="row">
-    <div class="col">ประเภทสถานที่ท่องเที่ยว
-        <select id="typeroom_capacity" name="typeroom_capacity" class="form-select">
-            {{-- @foreach($typetravels as $type_travels)
-              <option value={{ $type_travels->typetv_id }}>{{ $type_travels->typetv_name }}</option>
-            @endforeach --}}
-        </select>
-    </div>
-    <div class="col">
-    </div>
-</div>
 
-<div class="row">
-    <div class="col">จำนวนผู้เข้าพัก
-        <input type="number" class="form-control" placeholder="จำนวนผู้เข้าพัก" aria-label="Last name">
-    </div>
-    <div class="col">
-    </div>
-</div>
+    <form action="{{ route('addBooking') }}" method="POST" enctype="multipart/form-data" >
+    @csrf
 
-<div class="row">
-    <div class="col">รูปแบบห้องพัก
-        <select id="typeroom_capacity" name="typeroom_capacity" class="form-select">
-        </select>
+    <div class="row">
+        <div class="col">ประเภทสถานที่ท่องเที่ยว
+            <select id="typetravel_id" name="typetravel_id" class="select">
+            @foreach($typetravels as $row)
+                <option value={{ $row->typetravel_id }}>{{ $row->typetravel_name }}</option>
+            @endforeach
+            </select>
+        </div>
+        <div class="col">
+        </div>
     </div>
-    <div class="col">เลือกห้องพัก
-        <select id="typeroom_capacity" name="typeroom_capacity" class="form-select">
-        </select>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col">Check-in
-        <input type="date" class="form-control" placeholder="จำนวนนักท่องเที่ยว" aria-label="Last name">
+    <div class="row">
+        <div class="col">รูปแบบห้องพัก
+            <select id="typeroom_id" name="typeroom_id" class="select" onchange="selectTyperoom(this)">
+            @foreach($typerooms as $row)
+                <option value={{ $row->typeroom_id }}>{{ $row->typeroom_id }} | {{ $row->typeroom_name }}</option>
+            @endforeach
+            </select>
+        </div>
+        <div class="col">เลือกห้องพัก
+            <select id="room_id" name="room_id" class="select" onchange="selectRoom(this)">
+            <option value="">เลือก</option>
+            @foreach($rooms as $row)
+                <option value={{ $row->room_id }}>หมายเลขห้องพัก {{ $row->room_number }} | ราคา {{ $row->room_price }} บาท </option>
+            @endforeach
+            </select>
+        </div>
     </div>
-    <div class="col">Check-Out
-        <input type="date" class="form-control" placeholder="จำนวนนักท่องเที่ยว" aria-label="Last name">
+
+    <div class="row">
+        <div class="col">จำนวนผู้เข้าพัก
+            <input type="number" class="form-control" id="booking_amount" name="booking_amount" min="0">
+        </div>
+        <div class="col">
+        </div>
+        @error('booking_amount')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
     </div>
-</div> 
+
+    {{-- <div class="row">
+        <div class="col">จำนวนคืน
+            <input type="number" class="form-control" placeholder="จำนวนคืน" id="stay_amount" name="stay_amount">
+        </div>
+        <div class="col">
+        </div>
+    </div> --}}
+
+    <div class="row">
+        <div class="col">Check-in
+            <input type="date" class="form-control" name="booking_check_in" id="booking_check_in" onchange="showCalculate()">
+        </div>
+        <div class="col">Check-Out
+            <input type="date" class="form-control" name="booking_check_out" id="booking_check_out" onchange="showCalculate()">
+        </div>
+    </div> 
 
     <div class="row">
         <div class="col">
-            <BR><h1>ราคารวม 0 บาท</h1>
+            <BR><h1>ราคารวม <span id="priceShow"> 0 </span> บาท</h1>
         </div>
-        <div class="col">
-            <div button class="btn-1">จองเลย</div>
-        </div>
+
     </div>
+    <input type="submit" value="Submit">
+    <input type="hidden" name="totalBooking" id="totalBooking" value="0">
+    <input type="hidden" name="stay_amount" id="stay_amount">
+    </form> 
+
+    <script>
+        var bookingAmount = 0;
+        var priceRoom = 0;
+        var stayAmount = 1;
+        document.getElementsByName("booking_amount")[0].setAttribute('max',bookingAmount);
+
+        function selectTyperoom(el){
+            var value = (el.value || el.options[el.selectedIndex].value);
+            var sites = {!! json_encode($typerooms->toArray()) !!};
+            var tr;
+            
+            for (let i=0;i<sites.length;i++ ) {
+                if (sites[i].typeroom_id == value) {
+                    tr = sites[i];
+                }
+            }
+
+            if (tr.typeroom_id == "39") {
+                bookingAmount = 10;
+            } else {
+                bookingAmount = 5;
+            }
+
+            document.getElementsByName("booking_amount")[0].setAttribute('max',bookingAmount);
+            showCalculate();
+    }
+
+    function selectRoom(el){
+            var value = (el.value || el.options[el.selectedIndex].value);
+            var sites = {!! json_encode($rooms->toArray()) !!};
+            var rr;
+            
+            for (let i=0;i<sites.length;i++ ) {
+                if (sites[i].room_id == value) {
+                    rr = sites[i];
+                }
+            }
+
+            priceRoom = rr.room_price;
+            showCalculate();
+
+    }
+
+    function showCalculate(){
+
+            var checkIn = document.getElementById("booking_check_in").value;
+            var checkOut = document.getElementById("booking_check_out").value;
+            if (checkIn && checkOut) {
+                var diffDate = new Date(checkOut) - new Date(checkIn);
+                var priceShow = document.getElementById("priceShow");
+                stayAmount = diffDate / (1000*60*60*24);
+            }
+
+            priceShow.innerHTML = priceRoom * stayAmount ;
+            document.getElementById("totalBooking").value = priceRoom * stayAmount;
+            document.getElementById("stay_amount").value = stayAmount;
+
+            // console.log(pk.package_price);
+    }
+
+    </script>
+    
+    {{-- <script>
+        function showCalculate2(el){
+            var value = (el.value || el.options[el.selectedIndex].value);
+            var sites = {!! json_encode($rooms->toArray()) !!};
+            var rm;
+            for (let i=0;i<sites.length;i++ ) {
+                if (sites[i].room_id == value) {
+                    rm = sites[i];
+                }
+            }
+
+            var totalamount = document.getElementById("booking_amount").value;
+
+            var priceShow = document.getElementById("priceShow");
+            priceShow.innerHTML = rm.room_price * totalamount;
+
+            document.getElementById("totalBooking").value = pk.room_price * totalamount;
+
+        // console.log(pk.package_price);
+    }
+    </script> --}}
 
 </div>
 </div>

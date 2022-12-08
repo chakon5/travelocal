@@ -151,13 +151,42 @@ input[type=submit]:hover {
 
         <div class="row">
             <div class="col">
+                <label for="typetravel_id">ประเภทการท่องเที่ยว</label>
+                <select name="typetravel_id" class="select">
+                    {{-- @foreach($typetravels as $row)
+                    <option value={{ $row->typetravel_id }} selected>{{ $row->typetravel_name }}</option>
+                    @endforeach --}}
+
+                @foreach($typetravels as $row)     
+                    <option value={{ $row->typetravel_id }}
+                    @if($row->typetravel_id == $typeroom->typetravel_id)
+                        selected
+                    @endif>
+                    {{ $row->typetravel_name }}
+                    </option>
+                @endforeach
+                </select>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
                 <label for="typeroom_name" class="label">ชื่อประเภทห้องพัก</label>
                 <input type="text" name="typeroom_name" value="{{$typeroom->typeroom_name}}">
             </div>
             <div class="col">
                 <label for="typeroom_capacity">ความจุโดยประมาณ</label>
                 <select name="typeroom_capacity" class="select">
-                    <option value="{{$typeroom->typeroom_id}}" selected>{{$typeroom->typeroom_capacity}}</option>
+                    <option value="5" @if($typeroom->typeroom_capacity == '5')
+                        selected
+                    @endif>5 คน</option>
+    
+                    <option value="10" @if($typeroom->typeroom_capacity == '10')
+                        selected
+                    @endif>10 คน</option>
+                    {{-- <option value="{{$typeroom->typeroom_capacity}}" selected>{{$typeroom->typeroom_capacity}}</option> --}}
                 </select>
             </div>
         @error('typeroom_name')

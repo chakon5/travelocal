@@ -211,13 +211,13 @@ td.text-right {
         <thead>
             <tr>
                 <th class="text-left">ลำดับ</th>
-                <th class="text-left">ชื่อประเภทการท่องเที่ยว</th>
-                <th class="text-left">รายละเอียด</th>
-                <th class="text-left">แหล่งที่ตั้ง</th>
+                <th class="text-left" width="180px">ประเภทการท่องเที่ยว</th>
+                <th class="text-left" width="200px">รายละเอียด</th>
+                <th class="text-left" width="200px">แหล่งที่ตั้ง</th>
                 <th class="text-left">เวลาที่สร้าง</th>
                 <th class="text-left">เวลาที่อัพเดท</th>
                 <th class="text-left">ผู้แก้ไขล่าสุด</th>
-                <th class="text-left" width="150px" height="auto"></th>
+                <th class="text-left" width="140px" height="auto"></th>
             </tr>
         </thead>
         {{-- ข้อมูลในตาราง --}}

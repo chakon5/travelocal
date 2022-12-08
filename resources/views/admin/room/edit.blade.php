@@ -196,9 +196,16 @@ input[type=submit]:hover {
             <div class="col">
                 <label for="room_contain">ความจุผู้เข้าพัก</label>
                 <select name="room_contain" class="select">
-                    <option value="{{$room->room_id}}" selected>{{$room->room_contain}}</option>
-                    {{-- <option value="5">5 คน</option>
-                    <option value="10">10 คน</option> --}}
+
+                <option value="5" @if($room->room_contain == '5')
+                    selected
+                @endif>5 คน</option>
+
+                <option value="10" @if($room->room_contain == '10')
+                    selected
+                @endif>10 คน</option>
+
+                    {{-- <option value="{{$room->room_id}}" selected>{{$room->room_contain}}</option> --}}
                 </select>
             </div>
             <div class="col">

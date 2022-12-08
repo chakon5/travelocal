@@ -5,21 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-// use Illuminate\Database\Eloquent\SoftDeletes;
-
-class acttravel extends Model
+class Acttravel extends Model
 {
     use HasFactory;
-    // use SoftDeletes;
 
-    protected $primaryKey = 'at_id';
+    protected $primaryKey = 'acttravel_id';
 
     protected $fillable = [
-        'typetv_id',
-        'typetv_name',
+        'acttravel_id',
+        'typetravel_id',
+        'acttravel_name',
+        'acttravel_type',
+        'acttravel_list',
+        'acttravel_note',
     ];
-
-    public function type_travel(){
-        return $this->hasOne(Type_travel::class,'tpyetv_id','tpyetv_id');
-    }
 }

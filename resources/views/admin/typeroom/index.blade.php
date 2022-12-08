@@ -212,8 +212,8 @@ td.text-right {
             <tr>
                 <th class="text-left">ลำดับ</th>
                 <th class="text-left">ประเภทการท่องเที่ยว</th>
-                {{-- <th class="text-left">ชื่อประเภทห้องพัก</th> --}}
-                <th class="text-left">รายละเอียดห้องพัก</th>
+                <th class="text-left">ชื่อประเภทห้องพัก</th>
+                {{-- <th class="text-left">รายละเอียดห้องพัก</th> --}}
                 <th class="text-left">ความจุประมาณ</th>
                 <th class="text-left">เวลาที่สร้าง</th>
                 <th class="text-left">เวลาที่อัพเดท</th>
@@ -225,7 +225,7 @@ td.text-right {
         <tbody class="table-hover">
             @foreach($typerooms as $row)
             <tr>
-                {{-- <td class="text-left">{{$typerooms->firstItem()+$loop->index}}</td> --}}
+                <td class="text-left">{{$typerooms->firstItem()+$loop->index}}</td>
                 <td class="text-left">{{$row->typetravel_name}}</td>
                 <td class="text-left">{{$row->typeroom_name}}</td>
                 {{-- <td class="text-left">{{$row->typeroom_detail}}</td> --}}
@@ -251,8 +251,23 @@ td.text-right {
         </table>
 
         <div class="paginate">
-        {{-- {!! $typerooms->links('pagination::bootstrap-5') !!} --}}
+        {!! $typerooms->links('pagination::bootstrap-5') !!}
         </div>
+{{-- 
+        {{ $sum=0 }}
+        @foreach($typerooms as $row)
+            <?php $sum = $sum + $row->typeroom_capacity ?>
+        @endforeach
+
+        {{ $sum }} --}}
+
+
+            {{-- {{ $sum=0 }}
+            @foreach ($i=1;$i<10;$i++) {
+
+                {{ $sum=$sum + $typerooms->typeroom_capacity }}
+            }
+            @endforeach --}}
 
     </div>
 </div>

@@ -46,7 +46,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                 <img src="{{asset('/img/LOGO-2.png')}}" id="logo" alt="" width="140" height="auto">
                     <!-- {{ config('app.name', 'Laravel') }} -->
                 </a>
@@ -62,7 +62,7 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ url('/bookpg') }}">จองแพ็คเกจ</a></li>
                         <li><a class="dropdown-item" href="{{ url('/bookroom') }}">จองห้องพัก</a></li>
-                        <li><a class="dropdown-item" href="#">ตรวจสอบการจอง</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/showbooking') }}">รายการจอง</a></li>
                     </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -70,8 +70,8 @@
                         ชำระเงิน
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">แจ้งชำระเงิน</a></li>
-                        <li><a class="dropdown-item" href="#">ตรวจสอบสถานะ</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/payment') }}">แจ้งชำระเงิน</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/showpayment') }}">ตรวจสอบสถานะ</a></li>
                     </ul>
                     </li>
                     <!-- <li class="nav-item">

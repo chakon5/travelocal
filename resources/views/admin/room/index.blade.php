@@ -211,7 +211,7 @@ td.text-right {
         <thead>
             <tr>
                 <th class="text-left">ลำดับ</th>
-                <th class="text-left">ประเภทการท่องเที่ยว</th>
+                <th class="text-left">ประเภทห้องพัก</th>
                 <th class="text-left">หมายเลขห้องพัก</th>
                 {{-- <th class="text-left">รายละเอียดห้องพัก</th> --}}
                 <th class="text-left">ความจุผู้เข้าพัก</th>
@@ -229,7 +229,7 @@ td.text-right {
                 <td class="text-left">{{$row->typeroom_name}}</td>
                 <td class="text-left">{{$row->room_number}}</td>
                 {{-- <td class="text-left">{{$row->room_detail}}</td> --}}
-                <td class="text-left">{{$row->room_contain}}</td>
+                <td class="text-left">{{$row->room_contain}} คน</td>
                 <td class="text-left">{{$row->room_price}}</td>
                 <td class="text-left"><img src="{{asset($row->room_img)}}" alt="" width="80px" height="auto"></td>
                 {{-- <td class="text-left">{{Carbon\Carbon::parse($row->created_at)->diffForHumans()}}</td> --}}

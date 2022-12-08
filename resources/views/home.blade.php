@@ -92,8 +92,8 @@
             <h>เที่ยวท้องถิ่น</h>
             <h>กับจังหวัดปัตตานี</h></div>
             <BR><BR>
-
-        <center><div button class="btn-1">จองเลย</div><br><br><BR>
+                
+        <center><div button class="btn-1" onclick="location='{{ route('bookpg') }}'">จองเลย</div><br><br><BR>
 
         <div class="grid-container">
             <div><img src="{{asset('/img/first1.jpg')}}" alt="" width="450" height="300"></div>

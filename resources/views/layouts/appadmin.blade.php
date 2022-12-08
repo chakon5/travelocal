@@ -119,16 +119,19 @@
 <!-- <div class="f-navbar"></div> -->
 
 <div id="mySidenav" class="sidenav">
-<center><img src="{{asset('/img/TRAVELOCAL-GP.png')}}" id="logo" alt="" width="180" height="auto"></center><BR>
+<center><img src="{{asset('/img/TRAVELOCAL-GP.png')}}" id="logo" alt="" width="230" height="auto"></center><BR>
+
+  <a href="{{ route('admin.home') }}"><button class="dropdown-btn">Dashboard</button></a>
+
   <button class="dropdown-btn"><i class="fa-solid fa-map"></i> จัดการการจอง
   <i class="fa-sharp fa-solid fa-caret-down"></i>
   </button>
   <div class="dropdown-container">
-    <a href="#">รายการจอง</a>
-    <a href="#">จองแพ็คเกจ</a>
-    <a href="#">จองห้องพัก</a>
-    <a href="#">จองกิจกรรมเสริม</a>
-    <a href="#">ระบบอนุมัติการจอง</a>
+    <a href="{{ route('booking') }}">รายการจอง</a>
+    <a href="{{ route('bookingpackage') }}">จองแพ็คเกจ</a>
+    <a href="{{ route('bookingroom') }}">จองห้องพัก</a>
+    {{-- <a href="#">จองกิจกรรมเสริม</a>
+    <a href="#">ระบบอนุมัติการจอง</a> --}}
   </div>
   
   <button class="dropdown-btn"><i class="fa-solid fa-bed"></i> จัดการห้องพัก
@@ -137,7 +140,7 @@
   <div class="dropdown-container">
     <a href="{{ route('typeroom') }}">ประเภทห้องพัก</a>
     <a href="{{ route('room') }}">ห้องพัก</a>
-    <a href="#">รายการห้องพัก</a>
+    <a href="{{ route('inventoryRoom') }}">รายการห้องพัก</a>
   </div>
 
   <button class="dropdown-btn"><i class="fa-sharp fa-solid fa-location-dot"></i> จัดการการท่องเที่ยว
@@ -145,29 +148,37 @@
     </button>
     <div class="dropdown-container">
       <a href="{{ route('typetravel') }}">ประเภทการท่องเที่ยว</a>
-      <a href="{{ route('acttravel.index') }}">กิจกรรมการเที่ยว</a>
-      <a href="{{ route('menufood.index') }}">เมนูอาหาร</a>
-      <a href="#">แพ็คเกจการท่องเที่ยว</a>
+      <a href="{{ route('acttravel') }}">กิจกรรมการเที่ยว</a>
+      <a href="{{ route('menufood') }}">เมนูอาหาร</a>
+      <a href="{{ route('guide') }}">ไกด์นำเที่ยว</a>
     </div>
+
+    <button class="dropdown-btn"><i class="fa-solid fa-puzzle-piece"></i> จัดการแพ็คเกจท่องเที่ยว
+      <i class="fa-sharp fa-solid fa-caret-down"></i>
+      </button>
+      <div class="dropdown-container">
+        <a href="{{ route('createPackage') }}">สร้างแพ็คเกจท่องเที่ยว</a>
+        <a href="{{ route('package') }}">รายการแพ็คเกจท่องเที่ยว</a>
+      </div>
 
   <button class="dropdown-btn"><i class="fa-solid fa-person-running"></i> จัดการกิจกรรมเสริม
     <i class="fa-sharp fa-solid fa-caret-down"></i>
     </button>
     <div class="dropdown-container">
-      <a href="{{ route('activity.index') }}">กิจกรรมเสริม</a>
+      <a href="{{ route('activity') }}">กิจกรรมเสริม</a>
       <a href="#">รายละเอียดกิจกรรม</a>
     </div>
 
-  <a href="#" ><i class="fa-solid fa-wallet"></i> การชำระเงิน</a>
+  <a href="{{ route('bookingpay') }}" ><i class="fa-solid fa-wallet"></i> การชำระเงิน</a>
   {{-- <a href="#">Contact</a> --}}
 
   <button class="dropdown-btn"><i class="fa-solid fa-user"></i> จัดการบุคคล
   <i class="fa-sharp fa-solid fa-caret-down"></i>
   </button>
   <div class="dropdown-container">
-    <a href="{{ route('user.index') }}">จัดการลูกค้า</a>
+    <a href="{{ route('employee') }}">จัดการพนักงาน</a>
     <a href="{{ route('entrepreneur.index') }}">จัดการผู้ประกอบการ</a>
-    <a href="{{ route('guide.index') }}">จัดการไกด์นำเที่ยว</a>
+    <a href="{{ route('user.index') }}">จัดการลูกค้า</a>
   </div>
 </div>
 

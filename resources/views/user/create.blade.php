@@ -171,6 +171,7 @@ div.container-1 {
             <label for="birthday">วัน/เดือน/ปีเกิด</label>
             <input type="date" id="birthday" name="birthday">
           </div>
+        </div>  
 
           <div class="w3-row">
             <div class="w3-half">

@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\user;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserCRUDController extends Controller
 {
     // Create Index
     public function index() {
-        $data['user'] = User::orderBy('user_id', 'asc')->paginate(5);
+        $data['user'] = User::where('is_admin','0')->orderby('user_id','asc')->paginate(5);
         return view('user.index', $data);
     }
 

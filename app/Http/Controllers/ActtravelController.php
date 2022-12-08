@@ -2,77 +2,105 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\acttravel;
-use App\Models\type_travel;
 use Illuminate\Http\Request;
+use App\Models\Acttravel;
+use App\Models\Typetravel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
 
 class ActtravelController extends Controller
 {
-    // Create Index
-    public function index() {
-        $acttravel=DB::table('acttravels')
-        ->join('type_travels','acttravels.typetv_id','type_travels.typetv_id')
-        ->select('acttravels.*','type_travels.typetv_name')->paginate(5);
-
-        return view('acttravel.index', compact('acttravel'));
-        // $acttravel=DB::table('acttravels')->paginate(5);
-        // return view('acttravel.index', compact('acttravel'));
+    //หน้าแสดงข้อมูล
+    public function index(){
+        $acttravels=DB::table('acttravels')
+        ->join('typetravels','acttravels.typetravel_id','typetravels.typetravel_id')
+        ->select('acttravels.*','typetravels.typetravel_name')->paginate(5);
+        // $acttravels=Acttravel::paginate(5);
+        return view('admin.acttravel.index',compact('acttravels'));
     }
 
-    // Create resource
+    //หน้าเพิ่มข้อมูล
     public function create() {
-        $acttravel = Type_travel::all();
-        return view('acttravel.create', compact('acttravel'));
+        $typetravels = Typetravel::all();
+        return view('admin.acttravel.create',compact('typetravels'));
     }
 
-    // Store resource
-    public function store(Request $request ) {
-        $request->validate([
-            'at_name' => 'required',
-            'typetv_id' => 'required',
-            'at_type' => 'required',
-            'at_detail' => 'required',
-            'at_note' => 'required',
+    public function store(Request $request){
+        //ตรวจสอบข้อมูล
+        $request->validate(
+            [
+                'acttravel_name'=>'required|unique:acttravels|max:255',
+                'acttravel_type'=>'required',
+                'acttravel_list'=>'required',
+                'acttravel_note'=>'required',
+            ],
+            [
+                'acttravel_name.required'=>"กรุณาป้อนชื่อกิจกรรมการเที่ยว",
+                'acttravel_name.max' => "ห้ามป้อนข้อมูลเกิน 255 ตัวอักษร",
+                'acttravel_name.unique'=>"มีข้อมูลชื่อนี้ในฐานข้อมูลแล้ว",
+
+                'acttravel_type.required'=>"กรุณาเลือกรูปแบบกิจกรรมการเที่ยว",
+                'acttravel_list.required'=>"กรุณาป้อนรายการกิจกรรมการเที่ยว",
+                'acttravel_note.required'=>"ป้อนหมายเหตุเพิ่มเติม",
+            ]
+
+        );
+        //บันทึกข้อมูล
+        $acttravel = new Acttravel;
+        $acttravel->typetravel_id = $request->typetravel_id;
+        $acttravel->acttravel_name = $request->acttravel_name;
+        $acttravel->acttravel_type = $request->acttravel_type;
+        $acttravel->acttravel_list = $request->acttravel_list;
+        $acttravel->acttravel_note = $request->acttravel_note;
+
+        $acttravel->save();
+        return redirect()->route('acttravel')->with('success', 'ข้อมูลกิจกรรมการเที่ยวได้รับการบันทึกเรียบร้อยแล้ว');
+
+    }
+
+    //หน้าแก้ไขข้อมูล
+    public function edit($acttravel_id){
+        $acttravel = Acttravel::find($acttravel_id);
+        $typetravels = Typetravel::all();
+        return view('admin.acttravel.edit',compact('acttravel','typetravels'));
+    }
+
+    public function update(Request $request , $acttravel_id){
+        //ตรวจสอบข้อมูล
+        $request->validate(
+            [
+                'acttravel_name'=>'required|max:255',
+                'acttravel_type'=>'required',
+                'acttravel_list'=>'required',
+                'acttravel_note'=>'required',
+            ],
+            [
+                'acttravel_name.required'=>"กรุณาป้อนชื่อกิจกรรมการเที่ยว",
+                'acttravel_name.max' => "ห้ามป้อนข้อมูลเกิน 255 ตัวอักษร",
+
+                'acttravel_type.required'=>"กรุณาเลือกรูปแบบกิจกรรมการเที่ยว",
+                'acttravel_list.required'=>"กรุณาป้อนรายการกิจกรรมการเที่ยว",
+                'acttravel_note.required'=>"ป้อนหมายเหตุเพิ่มเติม",
+            ]
+
+        );
+        $update = Acttravel::find($acttravel_id)->update([
+            'typetravel_id'=>$request->typetravel_id,
+            'acttravel_name'=>$request->acttravel_name,
+            'acttravel_type'=>$request->acttravel_type,
+            'acttravel_list'=>$request->acttravel_list,
+            'acttravel_note'=>$request->acttravel_note
         ]);
 
-        $acttravels = new Acttravel;
-        $acttravels->at_name = $request->at_name;
-        $acttravels->typetv_id = $request->typetv_id;
-        $acttravels->at_type = $request->at_type;
-        $acttravels->at_detail = $request->at_detail;
-        $acttravels->at_note = $request->at_note;
-        
-        $acttravels->save();
-        return redirect()->route('acttravel.index')->with('success', 'Acttravel has been created successfully.');
-    }
-    
-    public function edit(Acttravel $acttravel) {
-        return view('acttravel.edit', compact('acttravel'));
+        return redirect()->route('acttravel')->with('success', 'ข้อมูลกิจกรรมการเที่ยวได้รับการอัพเดทเรียบร้อยแล้ว');
     }
 
-    public function update(Request $request, $at_id) {
-        $request->validate([
-            'at_name' => 'required',
-            'typetv_id' => 'required',
-            'at_type' => 'required',
-            'at_detail' => 'required',
-            'at_note' => 'required',
-        ]);
-        $acttravels = Acttravel::find($at_id);
-        $acttravels->at_name = $request->at_name;
-        $acttravels->typetv_id = $request->typetv_id;
-        $acttravels->at_type = $request->at_type;
-        $acttravels->at_detail = $request->at_detail;
-        $acttravels->at_note = $request->at_note;
-
-        $acttravels->save();
-        return redirect()->route('acttravel.index')->with('success', 'Acttravel has been updated successfully.');
+    //ลบข้อมูล
+    public function destroy($acttravel_id){
+        $delete = Acttravel::find($acttravel_id)->delete();
+        return redirect()->route('acttravel')->with('success', 'ลบข้อมูลกิจกรรมการเที่ยวเรียบร้อยแล้ว');
     }
 
-    public function destroy(Acttravel $acttravel) {
-        $acttravel->delete();
-        return redirect()->route('acttravel.index')->with('success', 'Acttravel has been deleted successfully.');
-    }    
 }

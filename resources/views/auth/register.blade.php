@@ -1,10 +1,55 @@
-@extends('layouts.applog')
+@extends('layouts.appfirst')
+
+<style>
+
+body {
+    background-image: url({{asset('/img/napok1.png')}});
+}
+
+.register{
+    margin-top: 5px;
+}
+
+.a{
+    margin-left: 30px;
+}
+
+.text-sm {
+    width: 350px;
+    background-color: #04AA6D;
+    color: white;
+    padding: 10px 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+</style>
 
 @section('content')
+<body>
+
+<div class="a">
+    @if (Route::has('login'))
+        <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+            @auth
+                <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500">Home</a>
+            @else
+                <a href="{{ url('/') }}" class="text-sm">เข้าสู่ระบบ</a>
+    
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="text-sm">สมัครสมาชิก</a>
+                @endif
+            @endauth
+        </div>
+    @endif
+</div>    
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card register">
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
@@ -148,4 +193,5 @@
         </div>
     </div>
 </div>
+</body>
 @endsection

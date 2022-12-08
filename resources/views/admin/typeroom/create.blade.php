@@ -149,6 +149,22 @@ input[type=submit]:hover {
     <form action="{{ route('addTyperoom') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
+    <div class="row">
+        <div class="col">
+            <label for="typetravel_id">ประเภทการท่องเที่ยว</label>
+            <select name="typetravel_id" class="select">
+                {{-- <option value={{ $type_travels->typetv_id }} selected>{{ $type_travels->typetv_name }}</option> --}}
+                <option value="" selected></option>
+                @foreach($typetravels as $row)
+                    <option value={{ $row->typetravel_id }}>{{ $row->typetravel_name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col">
+        </div>
+    </div>    
+
+
         <div class="row">
             <div class="col">
                 <label for="typeroom_name">ชื่อประเภทห้องพัก</label>

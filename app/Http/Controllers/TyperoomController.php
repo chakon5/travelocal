@@ -15,14 +15,20 @@ class TyperoomController extends Controller
         $typerooms=DB::table('typerooms')
         ->join('users','typerooms.user_id','users.user_id')
         ->join('typetravels','typerooms.typetravel_id','typetravels.typetravel_id')
-        ->select('typerooms.*','users.name','typetravels.typetravel_name')->get();
+        ->select('typerooms.*','users.name','typetravels.typetravel_name')->paginate(6);
         // $typerooms=Typeroom::paginate(5);
+
+        // $sum=0;
+        // $i++;
+        // $typeroom_capacity;
+        
         return view('admin.typeroom.index',compact('typerooms'));
     }
 
     //หน้าเพิ่มข้อมูล
     public function create() {
-        return view('admin.typeroom.create');
+        $typetravels = Typetravel::all();
+        return view('admin.typeroom.create',compact('typetravels'));
     }
 
     public function store(Request $request){
@@ -49,6 +55,7 @@ class TyperoomController extends Controller
         $typeroom->typeroom_detail = $request->typeroom_detail;
         $typeroom->typeroom_capacity = $request->typeroom_capacity;
         $typeroom->user_id = Auth::user()->user_id;
+        $typeroom->typetravel_id = $request->typetravel_id;
 
         $typeroom->save();
         return redirect()->route('typeroom')->with('success', 'ข้อมูลประเภทห้องพักได้รับการบันทึกเรียบร้อยแล้ว');
@@ -57,7 +64,8 @@ class TyperoomController extends Controller
 
     public function edit($typeroom_id){
         $typeroom = Typeroom::find($typeroom_id);
-        return view('admin.typeroom.edit',compact('typeroom'));
+        $typetravels = Typetravel::all();
+        return view('admin.typeroom.edit',compact('typeroom','typetravels'));
     }
 
     public function update(Request $request , $typeroom_id){
@@ -81,7 +89,8 @@ class TyperoomController extends Controller
             'typeroom_name'=>$request->typeroom_name,
             'typeroom_detail'=>$request->typeroom_detail,
             'typeroom_capacity'=>$request->typeroom_capacity,
-            'user_id'=>Auth::user()->user_id
+            'user_id'=>Auth::user()->user_id,
+            'typetravel_id'=>$request->typetravel_id
         ]);
 
         return redirect()->route('typeroom')->with('success', 'ข้อมูลประเภทห้องพักได้รับการอัพเดทเรียบร้อยแล้ว');
